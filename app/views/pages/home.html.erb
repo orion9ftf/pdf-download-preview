@@ -1,10 +1,21 @@
 <div class="container mt-4">
-  <h1>Pages#home</h1>
-  <p>Find me in app/views/pages/home.html.erb</p>
-
+  <h2>Descargar los datos de los usuari@s:</h2>
   <%= link_to 'Peoples', people_path, class: 'btn btn-primary' %> | 
   <%= link_to 'Download', download_path, class: 'btn btn-info' %> | 
   <%= link_to 'Preview', preview_path, class: 'btn btn-warning' %>
+ 
+  <hr>
+
+  <div class="card" style="width: 18rem;">
+    <% @people.each do |person| %>
+      <img src="https://cdn.pixabay.com/photo/2022/08/07/16/03/bee-7370876_1280.jpg" class="card-img-top" alt="img-bee">
+      <div class="card-body">
+        <h5 class="card-title">Nombre: <%= person.name %> <%= person.last_name %></h5>
+        <p class="card-text">Edad: <%= person.age %></p>
+        <p class="card-text">Teléfono: <%= person.cellphone %></p>
+        <%= link_to "Ver más", person, class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+
 </div>
-
-
