@@ -1,5 +1,5 @@
 class PeopleController < ApplicationController
-  before_action :set_person, only: %i[ show edit update destroy ]
+  before_action :set_person, only: %i[ show edit update destroy pdf]
 
   # GET /people or /people.json
   def index
@@ -56,6 +56,24 @@ class PeopleController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def pdf
+    pdf = Prawn::Document.new
+    pdf.text @person.name, size: 20, style: :bold
+    pdf.text @person.last_name
+    pdf.text @person.age
+    pdf.text @person.cellphone
+
+    thumbnail_image = StringIO.open(@person.thumbnail.download)
+    pdf.image thumbnail_image, fit: [100,100]
+
+    send_data(pdf.render,
+        filename: "#{@person.name}.pdf",
+        type: 'application/pdf',
+        disposition: 'inline'
+      )
+  end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.

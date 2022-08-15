@@ -23,4 +23,6 @@
     <%= image_tag person.thumbnail, style: 'width:200px;height:200px;' %>
   <% end %>
 
+  <%= link_to 'View PDF', people_pdf_path(person) %>
+
 </div>
